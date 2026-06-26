@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDCPWmq7fYUrtC7SdBLJ4WlEy-EEmNHEuw",
-  authDomain: "urbaneye-a40b0.firebaseapp.com",
-  projectId: "urbaneye-a40b0",
-  storageBucket: "urbaneye-a40b0.firebasestorage.app",
-  messagingSenderId: "295906520445",
-  appId: "1:295906520445:web:46c34f1b1ee7bf9f1db014"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDCPWmq7fYUrtC7SdBLJ4WlEy-EEmNHEuw",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "urbaneye-a40b0.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "urbaneye-a40b0",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "urbaneye-a40b0.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "295906520445",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:295906520445:web:46c34f1b1ee7bf9f1db014"
 };
 
 // Initialize Firebase
