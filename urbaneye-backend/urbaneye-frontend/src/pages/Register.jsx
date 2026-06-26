@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
 import api from '../services/api';
+import { useTranslation } from '../config/useTranslation';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +62,7 @@ export default function Register() {
           </div>
           <div className="flex flex-col justify-center">
             <span className="font-bold text-xl text-white tracking-tight leading-none mb-0.5">UrbanEye</span>
-            <span className="text-[9px] font-bold text-[#FF9933] tracking-[0.2em]">CIVIC INTELLIGENCE</span>
+            <span className="text-[9px] font-bold text-[#FF9933] tracking-[0.2em]">{t('homeSubtitle', 'CIVIC INTELLIGENCE')}</span>
           </div>
         </div>
 
@@ -94,8 +96,8 @@ export default function Register() {
       {/* Right Panel */}
       <div className="flex-1 flex flex-col justify-center px-8 sm:px-16 lg:px-24 bg-white relative">
         <div className="max-w-sm w-full mx-auto">
-          <h2 className="text-4xl font-serif text-[#1e3a8a] font-bold mb-2 tracking-tight">Create account</h2>
-          <p className="text-gray-500 text-sm mb-10 font-medium tracking-wide">Join your civic community today — free forever.</p>
+          <h2 className="text-4xl font-serif text-[#1e3a8a] font-bold mb-2 tracking-tight">{t('createAccount', 'Create account')}</h2>
+          <p className="text-gray-500 text-sm mb-10 font-medium tracking-wide">{t('joinCivicCommunity', 'Join your civic community today — free forever.')}</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
@@ -105,7 +107,7 @@ export default function Register() {
             )}
 
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('fullName', 'Full Name')}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
@@ -122,7 +124,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('emailAddress', 'Email Address')}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -139,7 +141,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Password</label>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('password', 'Password')}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -157,7 +159,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Confirm Password</label>
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('confirmPassword', 'Confirm Password')}</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -178,7 +180,7 @@ export default function Register() {
               disabled={loading}
               className="w-full flex justify-center items-center gap-2 rounded-lg bg-[#1e3a8a] px-4 py-3.5 text-sm font-semibold text-white hover:bg-blue-900 transition-all mt-6 disabled:opacity-50 shadow-md active:scale-[0.98]"
             >
-              {loading ? 'Creating Account...' : 'Create Account \u2192'}
+              {loading ? t('creatingAccount', 'Creating Account...') : t('createAccountBtn', 'Create Account →')}
             </button>
           </form>
 
@@ -188,11 +190,11 @@ export default function Register() {
           </div>
 
           <p className="text-center text-sm text-gray-600 font-medium mb-12">
-            Already have an account? <Link to="/login" className="font-bold text-[#1e3a8a] hover:underline">Sign in here</Link>
+            {t('alreadyHaveAccount', 'Already have an account?')} <Link to="/login" className="font-bold text-[#1e3a8a] hover:underline">{t('signInHere', 'Sign in here')}</Link>
           </p>
 
           <p className="text-center text-[10px] text-gray-400 leading-relaxed font-medium">
-            By creating an account you agree to our Terms of Service and<br/>Privacy Policy.
+            {t('termsNotice', 'By creating an account you agree to our Terms of Service and Privacy Policy.')}
           </p>
         </div>
       </div>

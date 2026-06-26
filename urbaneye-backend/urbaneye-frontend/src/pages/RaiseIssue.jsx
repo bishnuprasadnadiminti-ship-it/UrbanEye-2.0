@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useTranslation } from '../config/useTranslation';
 
 export default function RaiseIssue() {
   const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
@@ -16,6 +17,7 @@ export default function RaiseIssue() {
   const canvasRef = useRef(null);
   const [duplicateData, setDuplicateData] = useState(null);
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const { t } = useTranslation();
 
   const [form, setForm] = useState({
     title: '',
@@ -242,14 +244,14 @@ export default function RaiseIssue() {
   return (
     <div className="min-h-[calc(100vh-86px)] bg-gray-50 flex justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white rounded-xl shadow-md border-t-4 border-[#1e3a8a] p-8 w-full max-w-lg mb-10 h-max">
-        <h2 className="text-2xl font-serif font-bold text-[#1e3a8a] mb-2">{isUpdate ? "Broadcast Official Update" : "File Civic Report"}</h2>
+        <h2 className="text-2xl font-serif font-bold text-[#1e3a8a] mb-2">{isUpdate ? t('broadcastUpdate', 'Broadcast Official Update') : t('fileCivicReport', 'File Civic Report')}</h2>
         <p className="text-gray-500 text-sm mb-8 font-medium tracking-wide">
-          {isUpdate ? "Push an official announcement to all community citizens." : "Submit verified issue data to the civic operations center."}
+          {isUpdate ? t('pushAnnouncement', 'Push an official announcement to all community citizens.') : t('submitVerifiedData', 'Submit verified issue data to the civic operations center.')}
         </p>
 
         {fallbackActive && !isUpdate && (
           <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg text-amber-800 text-xs">
-            <span className="font-bold">AI Quota Exhausted:</span> Please enter the report title, category, and situation details manually below.
+            <span className="font-bold">{t('aiQuotaExhausted', 'AI Quota Exhausted:')}</span> {t('enterManually', 'Please enter the report title, category, and situation details manually below.')}
           </div>
         )}
 
@@ -258,7 +260,7 @@ export default function RaiseIssue() {
           {!photo && !cameraActive && (
             <button onClick={handleStartCamera} className="bg-[#1e3a8a] text-white px-6 py-3 rounded-lg shadow-sm font-bold tracking-wider uppercase text-xs flex items-center gap-3 hover:bg-blue-900 transition-colors">
               <svg className="w-5 h-5 text-[#FF9933]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              Initialize Camera
+              {t('initializeCamera', 'Initialize Camera')}
             </button>
           )}
 
@@ -293,14 +295,14 @@ export default function RaiseIssue() {
               <svg className="w-4 h-4 text-blue-400 shrink-0 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              <span className="text-blue-500 font-medium">Resolving GPS location...</span>
+              <span className="text-blue-500 font-medium">{t('resolvingGps', 'Resolving GPS location...')}</span>
             </>
           )}
         </div>
 
         {photo && !cameraActive && (
           <button onClick={handleRetake} className="w-full bg-gray-100 text-gray-700 py-2.5 rounded-lg mb-8 text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors border border-gray-200">
-            Discard & Retake Evidence
+            {t('discardRetake', 'Discard & Retake Evidence')}
           </button>
         )}
 
@@ -309,7 +311,7 @@ export default function RaiseIssue() {
           {(isUpdate || (fallbackActive && !isUpdate)) && (
             <div>
               <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
-                {isUpdate ? "Headline" : "Report Title (Required)"}
+                {isUpdate ? t('headline', 'Headline') : t('reportTitle', 'Report Title (Required)')}
               </label>
               <input
                 type="text"
@@ -324,7 +326,7 @@ export default function RaiseIssue() {
           {!isUpdate && (
             <div>
               <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
-                {fallbackActive ? "Category Classification (Required)" : "Category Classification (Optional - AI will auto-detect)"}
+                {fallbackActive ? t('categoryRequired', 'Category Classification (Required)') : t('autoDetectAi', 'Category Classification (Optional - AI will auto-detect)')}
               </label>
               <select
                 className="w-full border border-gray-200 rounded-lg py-3 px-4 text-sm font-medium focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] outline-none bg-white text-gray-900"
@@ -340,7 +342,7 @@ export default function RaiseIssue() {
 
           <div className="mb-8">
             <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
-              {fallbackActive ? "SITUATION REPORT (Required)" : "SITUATION REPORT (Optional - AI will describe if empty)"}
+              {fallbackActive ? t('situationReportRequired', 'SITUATION REPORT (Required)') : t('situationReportOptional', 'SITUATION REPORT (Optional - AI will describe if empty)')}
             </label>
             <textarea
               className="w-full border border-gray-200 rounded-lg py-3 px-4 text-sm font-medium h-32 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] outline-none resize-none leading-relaxed"
@@ -353,10 +355,10 @@ export default function RaiseIssue() {
 
           <div className="flex gap-4 mt-4 pt-2">
             <button type="button" onClick={() => navigate(-1)} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-lg text-xs font-bold tracking-widest hover:bg-gray-200 transition-colors uppercase border border-transparent">
-              Abort
+              {t('abort', 'Abort')}
             </button>
             <button disabled={loading} type="submit" className="flex-1 py-3 bg-[#138808] text-white rounded-lg text-xs font-bold tracking-widest shadow-md hover:bg-green-800 transition-colors disabled:opacity-50 uppercase">
-              {loading ? 'Transmitting...' : (isUpdate ? 'Broadcast' : 'File Report')}
+              {loading ? t('transmitting', 'Transmitting...') : (isUpdate ? t('broadcast', 'Broadcast') : t('fileReport2', 'File Report'))}
             </button>
           </div>
         </form>
@@ -374,13 +376,13 @@ export default function RaiseIssue() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold font-serif text-[#1e3a8a]">Possible Duplicate Detected</h3>
+                  <h3 className="text-xl font-bold font-serif text-[#1e3a8a]">{t('possibleDuplicate', 'Possible Duplicate Detected')}</h3>
                   <p className="text-xs text-amber-600 font-bold tracking-wide uppercase mt-0.5">AI MATCH CONFIDENCE: {duplicateData.confidence}%</p>
                 </div>
               </div>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-5 font-medium">
-                Our system detected a highly similar complaint already reported nearby. Compare the photos below to confirm.
+                {t('duplicateNearby', 'Our system detected a highly similar complaint already reported nearby. Compare the photos below to confirm.')}
               </p>
 
               {/* Side-by-side Image Comparison */}
@@ -389,7 +391,7 @@ export default function RaiseIssue() {
                 <div className="rounded-xl overflow-hidden border-2 border-dashed border-blue-200 bg-blue-50">
                   <div className="bg-[#1e3a8a] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 flex items-center gap-1.5">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    Your Photo
+                    {t('yourPhoto', 'Your Photo')}
                   </div>
                   {photo ? (
                     <img src={photo} alt="Your captured evidence" className="w-full h-40 object-cover" />
@@ -402,7 +404,7 @@ export default function RaiseIssue() {
                 <div className="rounded-xl overflow-hidden border-2 border-dashed border-amber-200 bg-amber-50">
                   <div className="bg-[#FF9933] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 flex items-center gap-1.5">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    Existing Report
+                    {t('existingReport', 'Existing Report')}
                   </div>
                   {duplicateData.masterIssue.imageUrl ? (
                     <img
@@ -444,14 +446,14 @@ export default function RaiseIssue() {
                   className="flex-1 py-3 px-4 bg-[#138808] text-white rounded-lg text-xs font-bold tracking-widest hover:bg-green-800 transition-colors uppercase shadow-md flex justify-center items-center gap-2 disabled:opacity-50"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
-                  Yes, Support Instead
+                  {t('yesSupportInstead', 'Yes, Support Instead')}
                 </button>
                 <button
                   disabled={loading}
                   onClick={handleDeclineDuplicate}
                   className="flex-1 py-3 px-4 bg-gray-100 text-gray-700 rounded-lg text-xs font-bold tracking-widest hover:bg-gray-200 transition-colors uppercase border border-gray-200 disabled:opacity-50"
                 >
-                  No, File As New
+                  {t('noFileAsNew', 'No, File As New')}
                 </button>
               </div>
             </div>

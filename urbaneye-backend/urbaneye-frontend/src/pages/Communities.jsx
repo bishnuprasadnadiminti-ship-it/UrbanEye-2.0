@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useTranslation } from '../config/useTranslation';
 
 const categoryColors = {
   ROADS: 'bg-yellow-100 text-yellow-800',
@@ -23,6 +24,7 @@ export default function Communities() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCommunities();
@@ -87,8 +89,8 @@ export default function Communities() {
       {/* Header Banner */}
       <div className="bg-[#1e3a8a] py-10 px-4 sm:px-6 lg:px-8 border-b-4 border-[#FF9933] shadow-md">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-serif font-bold text-white mb-2">Civic Communities</h1>
-          <p className="text-blue-200 text-sm font-medium">Join local district forums, raise issues, and coordinate official action.</p>
+          <h1 className="text-3xl font-serif font-bold text-white mb-2">{t('exploreDistrictComms', 'Civic Communities')}</h1>
+          <p className="text-blue-200 text-sm font-medium">{t('exploreDistrictCommsSub', 'Join local district forums, raise issues, and coordinate official action.')}</p>
         </div>
       </div>
 
@@ -103,14 +105,14 @@ export default function Communities() {
           <input
             type="text"
             className="block w-full py-2.5 px-3 border-none focus:ring-0 text-sm font-medium text-gray-900 placeholder:text-gray-400 outline-none"
-            placeholder="Search communities by name, category, or district..."
+            placeholder={t('searchCommunity', 'Search communities by name, category, or district...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
 
         {loading ? (
-          <div className="text-center py-10 text-sm font-medium text-gray-500">Retrieving official records...</div>
+          <div className="text-center py-10 text-sm font-medium text-gray-500">{t('searchingRecords', 'Retrieving official records...')}</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCommunities.map((community) => (
@@ -121,14 +123,16 @@ export default function Communities() {
               >
                 <div className="flex justify-between items-start mb-4 relative z-10">
                   <div className="flex-1">
-                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors">{community.name}</h3>
+                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors">
+                      {t(community.name?.toLowerCase(), community.name)}
+                    </h3>
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${categoryColors[community.category]?.replace('bg-', 'border-').replace('text-', 'text-') || 'border-gray-200 text-gray-600'}`}>
                         {community.category}
                       </span>
                       <span className="text-gray-500 text-xs font-bold flex items-center gap-1 uppercase tracking-wider">
                         <svg className="w-3 h-3 text-[#FF9933]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/></svg>
-                        {community.location || 'India'}
+                        {community.location ? t(community.location.toLowerCase(), community.location) : t('india', 'India')}
                       </span>
                     </div>
                   </div>
@@ -141,7 +145,7 @@ export default function Communities() {
                 <div className="mt-auto relative z-10 flex items-center justify-between border-t border-gray-100 pt-4">
                   <span className="text-gray-400 text-xs font-bold flex items-center gap-1.5 uppercase tracking-wide">
                     <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-                    {community.memberCount || 0} Citizens
+                    {community.memberCount || 0} {t('citizens', 'Citizens')}
                   </span>
 
                   <div>
@@ -151,14 +155,14 @@ export default function Communities() {
                           onClick={(e) => { e.stopPropagation(); navigate(`/community/${community.id}`); }}
                           className="py-1.5 px-4 rounded-md shadow-sm text-xs font-bold text-white bg-[#138808] hover:bg-green-800 uppercase tracking-wider transition-colors"
                         >
-                          Manage
+                          {t('manage', 'Manage')}
                         </button>
                       ) : (
                         <button 
                           onClick={(e) => { e.stopPropagation(); navigate(`/community/${community.id}`); }}
                           className="py-1.5 px-4 rounded-md text-xs font-bold text-gray-500 hover:text-[#1e3a8a] bg-gray-100 hover:bg-gray-200 uppercase tracking-wider transition-colors border border-gray-200"
                         >
-                          View Only
+                          {t('viewOnly', 'View Only')}
                         </button>
                       )
                     ) : (
@@ -168,13 +172,13 @@ export default function Communities() {
                              onClick={(e) => { e.stopPropagation(); navigate(`/community/${community.id}`); }}
                              className="py-1.5 px-4 rounded-md shadow-sm text-xs font-bold text-white bg-[#1e3a8a] hover:bg-blue-900 uppercase tracking-wider transition-colors"
                            >
-                             Enter
+                             {t('enter', 'Enter')}
                            </button>
                            <button 
                              onClick={(e) => handleLeave(community.id, e)}
                              className="py-1.5 px-3 rounded-md text-xs font-bold text-gray-500 hover:text-red-700 bg-white hover:bg-red-50 uppercase tracking-wider transition-colors border border-gray-200"
                            >
-                             Exit
+                             {t('exit', 'Exit')}
                            </button>
                         </div>
                       ) : (
@@ -182,7 +186,7 @@ export default function Communities() {
                           onClick={(e) => handleJoin(community.id, e)}
                           className="py-1.5 px-4 rounded-md shadow-sm text-xs font-bold text-white bg-[#FF9933] hover:bg-orange-600 uppercase tracking-wider transition-colors"
                         >
-                          Join Forum
+                          {t('joinForum', 'Join Forum')}
                         </button>
                       )
                     )}

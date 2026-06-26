@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { auth } from '../config/firebase';
 import { sendEmailVerification, signOut } from 'firebase/auth';
 import { Mail } from 'lucide-react';
+import { useTranslation } from '../config/useTranslation';
 
 export default function VerifyEmail() {
   const { currentUser, isEmailVerified, refreshVerification } = useAuth();
@@ -11,6 +12,7 @@ export default function VerifyEmail() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isEmailVerified) {
@@ -23,9 +25,9 @@ export default function VerifyEmail() {
       setError('');
       setLoading(true);
       await sendEmailVerification(currentUser);
-      setMessage('Verification email sent! Please check your inbox.');
+      setMessage(t('emailSentSuccess', 'Verification email sent! Please check your inbox.'));
     } catch (err) {
-      setError('Failed to resend the email. Trying too often?');
+      setError(t('emailResendFail', 'Failed to resend the email. Trying too often?'));
     } finally {
       setLoading(false);
     }
@@ -38,7 +40,7 @@ export default function VerifyEmail() {
       if (auth.currentUser.emailVerified) {
         navigate('/dashboard');
       } else {
-        setError('Email is still not verified. Please check your inbox.');
+        setError(t('emailNotVerifiedYet', 'Email is still not verified. Please check your inbox.'));
       }
     } catch (err) {
       setError('Error refreshing status.');
@@ -74,7 +76,7 @@ export default function VerifyEmail() {
           </div>
           <div className="flex flex-col justify-center">
             <span className="font-bold text-xl text-white tracking-tight leading-none mb-0.5">UrbanEye</span>
-            <span className="text-[9px] font-bold text-[#FF9933] tracking-[0.2em]">CIVIC INTELLIGENCE</span>
+            <span className="text-[9px] font-bold text-[#FF9933] tracking-[0.2em]">{t('homeSubtitle', 'CIVIC INTELLIGENCE')}</span>
           </div>
         </div>
 
@@ -100,9 +102,9 @@ export default function VerifyEmail() {
       {/* Right Panel */}
       <div className="flex-1 flex flex-col justify-center px-8 sm:px-16 lg:px-24 bg-white relative">
         <div className="max-w-sm w-full mx-auto">
-          <h2 className="text-4xl font-serif text-[#1e3a8a] font-bold mb-2 tracking-tight">Security Check</h2>
+          <h2 className="text-4xl font-serif text-[#1e3a8a] font-bold mb-2 tracking-tight">{t('securityCheck', 'Security Check')}</h2>
           <p className="text-gray-500 text-sm mb-10 font-medium tracking-wide">
-            We've dispatched an electronic verification link to <span className="font-bold text-gray-900 border-b border-gray-300">{currentUser.email}</span>. Click the link to complete registration.
+            {t('verifyEmailSent', "We've dispatched an electronic verification link to")} <span className="font-bold text-gray-900 border-b border-gray-300">{currentUser.email}</span>. {t('clickLinkToComplete', 'Click the link to complete registration.')}
           </p>
 
           {message && (
@@ -123,7 +125,7 @@ export default function VerifyEmail() {
               disabled={loading}
               className="w-full flex justify-center py-3.5 px-4 rounded-lg shadow-md text-sm font-semibold text-white bg-[#1e3a8a] hover:bg-blue-900 transition-all disabled:opacity-50 active:scale-[0.98]"
             >
-              Confirm Authorization &rarr;
+              {t('confirmAuthorization', 'Confirm Authorization →')}
             </button>
             
             <button
@@ -131,7 +133,7 @@ export default function VerifyEmail() {
               disabled={loading}
               className="w-full flex justify-center py-3.5 px-4 rounded-lg shadow-sm text-sm font-bold text-gray-600 bg-gray-50 hover:bg-gray-100 transition-all disabled:opacity-50 border border-gray-200"
             >
-              Resend Authority Link
+              {t('resendAuthorityLink', 'Resend Authority Link')}
             </button>
           </div>
 
@@ -144,7 +146,7 @@ export default function VerifyEmail() {
             onClick={handleLogout}
             className="w-full text-center text-sm font-bold text-[#1e3a8a] hover:underline"
           >
-            Abort and Abort Session
+            {t('abortSession', 'Abort and End Session')}
           </button>
         </div>
       </div>
