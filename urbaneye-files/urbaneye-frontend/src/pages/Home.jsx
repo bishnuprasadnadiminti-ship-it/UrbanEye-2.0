@@ -30,7 +30,7 @@ export default function Home() {
           <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FF9933] to-[#138808] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
         </div>
 
-        <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 text-center">
+        <div className="mx-auto max-w-3xl py-20 sm:py-24 lg:py-28 text-center">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-4 py-1 text-xs font-bold leading-6 text-[#FF9933] ring-1 ring-gray-900/10 hover:ring-gray-900/20 uppercase tracking-widest bg-orange-50">
               {t('officialCivicPortal', 'Official Civic Action Portal')}
@@ -87,11 +87,11 @@ export default function Home() {
               <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
                 <motion.div
                   variants={itemVariants}
-                  className="relative pl-16 bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                  className="relative pl-16 bg-white p-8 pl-28 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                   whileHover={{ scale: 1.02 }}
                 >
                   <dt className="text-base font-bold leading-7 text-gray-900 font-serif text-lg">
-                    <div className="absolute left-6 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#1e3a8a] shadow-sm">
+                    <div className="absolute left-8 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#1e3a8a] shadow-sm">
                       <Shield className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
                     {t('secureBackend', 'Secure Backend')}
@@ -102,11 +102,11 @@ export default function Home() {
                 </motion.div>
                 <motion.div
                   variants={itemVariants}
-                  className="relative pl-16 bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                  className="relative pl-16 bg-white p-8 pl-28 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                   whileHover={{ scale: 1.02 }}
                 >
                   <dt className="text-base font-bold leading-7 text-gray-900 font-serif text-lg">
-                    <div className="absolute left-6 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF9933] shadow-sm">
+                    <div className="absolute left-8 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF9933] shadow-sm">
                       <Zap className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
                     {t('lightningFast', 'Lightning Fast')}
