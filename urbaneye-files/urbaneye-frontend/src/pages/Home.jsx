@@ -24,8 +24,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative px-6 pt-14 lg:px-8 bg-white border-b border-gray-200"
-      >
+        className="relative px-6 pt-14 lg:px-8 bg-white border-b border-gray-200">
         <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
           <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#FF9933] to-[#138808] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
         </div>
@@ -49,8 +48,7 @@ export default function Home() {
                 href="/register"
                 to="/register"
                 className="rounded-lg bg-[#1e3a8a] px-6 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-blue-900 transition-all"
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
+                transition={{ type: 'spring', stiffness: 300 }}>
                 {t('accessPortal', 'Access Portal')}
               </motion.a>
             </motion.div>
@@ -60,7 +58,7 @@ export default function Home() {
                 href="/login"
                 to="/login"
                 className="text-sm font-bold leading-6 text-gray-900 hover:text-[#1e3a8a] transition-colors"
-              >
+                transition={{ type: 'spring', stiffness: 300 }}>
                 {t('citizenLogin', 'Citizen Login')} <span aria-hidden="true">→</span>
               </motion.a>
             </motion.div>
@@ -73,8 +71,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="py-24 sm:py-32 bg-gray-50"
-      >
+        className="py-24 sm:py-32 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-base font-bold uppercase tracking-widest leading-7 text-[#138808]">{t('infrastructureSecurity', 'Infrastructure Security')}</h2>
@@ -88,8 +85,7 @@ export default function Home() {
                 <motion.div
                   variants={itemVariants}
                   className="relative pl-16 bg-white p-8 pl-28 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                  whileHover={{ scale: 1.02 }}
-                >
+                  whileHover={{ scale: 1.02 }}>
                   <dt className="text-base font-bold leading-7 text-gray-900 font-serif text-lg">
                     <div className="absolute left-8 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#1e3a8a] shadow-sm">
                       <Shield className="h-6 w-6 text-white" aria-hidden="true" />
@@ -103,8 +99,7 @@ export default function Home() {
                 <motion.div
                   variants={itemVariants}
                   className="relative pl-16 bg-white p-8 pl-28 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                  whileHover={{ scale: 1.02 }}
-                >
+                  whileHover={{ scale: 1.02 }} >
                   <dt className="text-base font-bold leading-7 text-gray-900 font-serif text-lg">
                     <div className="absolute left-8 top-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF9933] shadow-sm">
                       <Zap className="h-6 w-6 text-white" aria-hidden="true" />
